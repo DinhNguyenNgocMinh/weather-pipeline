@@ -1,5 +1,5 @@
 import requests
-from settings import open_mateo
+from .settings import open_mateo
 
 s = open_mateo()
 

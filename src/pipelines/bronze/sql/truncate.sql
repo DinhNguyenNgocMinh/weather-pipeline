@@ -1,0 +1,1 @@
+DELETE FROM bronze_weather;
