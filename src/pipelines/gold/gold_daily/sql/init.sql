@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS gold_daily (
+    id TEXT PRIMARY KEY,
+    temperature FLOAT NOT NULL,
+    time NUMERIC NOT NULL,
+    uploaded_at DEFAULT CURRENT_TIMESTAMP
+)

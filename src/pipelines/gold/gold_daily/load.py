@@ -1,0 +1,43 @@
+import sqlite3
+from pathlib import Path
+
+import sys
+src_dir = Path(__file__).resolve().parents[3]
+sys.path.append(str(src_dir))
+from config.paths import DB_PATH
+
+
+
+def load_to_gold_daily(data):
+
+    sql_create = rf"{src_dir}\pipelines\gold\gold_daily\sql\init.sql"
+    sql_insert = rf"{src_dir}\pipelines\gold\gold_daily\sql\insert.sql"
+    sql_truncate = rf"{src_dir}\pipelines\gold\gold_daily\sql\truncate.sql"
+
+    df = data
+    df = list(df.itertuples(index=False, name=None))
+
+    try:
+        with open(sql_create, 'r') as c:
+            sql_create = c.read()
+
+        with open(sql_insert, 'r') as f:
+            sql_insert = f.read()
+
+        with open(sql_truncate, 'r') as t:
+            sql_truncate = t.read()
+
+        with sqlite3.connect(DB_PATH) as conn:
+
+            cursor = conn.cursor()
+            cursor.execute(sql_create)
+            cursor.execute(sql_truncate)
+            cursor.executemany(sql_insert, df)
+
+        print(f'>>>   Write {len(df)} lines successfully into "{DB_PATH}"')
+        conn.commit()
+        conn.close()
+
+    except Exception as e:
+        print("<<<   Failed to loading data")
+        print(e)
