@@ -10,6 +10,6 @@ from config.paths import DB_PATH
 def extract_silver():
 
     with sqlite3.connect(DB_PATH) as conn:
-        df = pd.read_sql('SELECT * FROM bronze_weather', conn)
+        df = pd.read_sql('SELECT * FROM silver_weather', conn)
 
     return df
