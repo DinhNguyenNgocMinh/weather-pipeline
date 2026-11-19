@@ -1,6 +1,6 @@
 # Weather Pipeline
 
-Pipeline ETL lấy dữ liệu nhiệt độ theo giờ từ Open-Meteo API, xử lý và lưu theo các tầng Bronze, Silver, Gold trong SQLite.
+Pipeline ETL retrieve data from Open-Meteo API, process and save by layers Bronze, Silver, Gold in SQLite.
 
 ## Stack
 
